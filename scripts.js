@@ -18,18 +18,28 @@ const gameBoard = (() => {
         }
         else{
            board[index] = piece;
+           checkWin();
+
         }
         
     }
-    const checkWin = () => {
+    const checkWin = (piece) => {
         winConditions.forEach((condition) => {
-            if (board[condition[0]] === board[condition[1]] &&
-                board[condition[1]] === board[condition[2]]){
+            if (board[condition[0]] === piece &&
+                board[condition[1]] === piece && 
+                board[condition[2]] === piece){
 
                 }
+            else{
+                
+            }
         })
     }
 
     return {setPiece};
 
 })();
+
+const uiController = (() => {
+    
+})
