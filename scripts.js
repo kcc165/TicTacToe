@@ -29,7 +29,7 @@ const gameBoard = (() => {
                 board[condition[1]] === piece && 
                 board[condition[2]] === piece){
 
-                }
+            }
             else{
                 
             }
@@ -41,5 +41,10 @@ const gameBoard = (() => {
 })();
 
 const uiController = (() => {
-    
-})
+    const squares = document.querySelectorAll(".slot");
+    squares.forEach((square) => {
+        square.addEventListener("click", (e) => {
+            console.log(e);
+        })
+    })
+})();
