@@ -44,7 +44,12 @@ const uiController = (() => {
     const squares = document.querySelectorAll(".slot");
     squares.forEach((square) => {
         square.addEventListener("click", (e) => {
-            console.log(e);
+            if (e.target.textContent === ""){
+                e.target.textContent = "Works";
+            }
+            else{
+               alert("Occupied. Choose another") 
+            }
         })
     })
 })();
