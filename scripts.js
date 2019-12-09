@@ -36,12 +36,22 @@ const gameBoard = (() => {
         })
     }
 
+    
+
     return {setPiece};
 
 })();
 
 const uiController = (() => {
     const squares = document.querySelectorAll(".slot");
+    const startScreen = document.querySelector("#start-screen");
+    const boardScreen = document.querySelector("#board");
+    const startGame = (p1name, p2name) => {
+        player1 = newPlayer(p1name, "X");
+        player2 = newPlayer(p2name, "O");
+        
+        
+    }
     squares.forEach((square) => {
         square.addEventListener("click", (e) => {
             if (e.target.textContent === ""){
