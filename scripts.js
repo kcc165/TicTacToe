@@ -46,10 +46,12 @@ const uiController = (() => {
     const squares = document.querySelectorAll(".slot");
     const startScreen = document.querySelector("#start-screen");
     const boardScreen = document.querySelector("#board");
+    const startButton = document.querySelector("#start");
     const startGame = (p1name, p2name) => {
         player1 = newPlayer(p1name, "X");
         player2 = newPlayer(p2name, "O");
-        
+        startScreen.setAttribute("style", "display: none;");
+        boardScreen.setAttribute("style", "display: block;");
         
     }
     squares.forEach((square) => {
@@ -58,8 +60,13 @@ const uiController = (() => {
                 e.target.textContent = "Works";
             }
             else{
-               alert("Occupied. Choose another") 
+               alert("Occupied. Choose another"); 
             }
         })
     })
+    startButton.addEventListener("click", (e) => {
+        console.log(e);
+    })
+
+    return {startGame}
 })();
