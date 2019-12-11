@@ -65,7 +65,10 @@ const uiController = (() => {
         })
     })
     startButton.addEventListener("click", (e) => {
-        console.log(e);
+        if (e.path[1].children[1].value === "" ||
+            e.path[1].children[3].value === ""){
+                alert("Please fill in names for both players!")
+            }
     })
 
     return {startGame}
