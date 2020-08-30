@@ -48,7 +48,7 @@ const gameBoard = (() => {
             if ((board[condition[0]] === piece &&
                 board[condition[1]] === piece && 
                 board[condition[2]] === piece)){
-                    console.log("This works");
+                    uiController.winScreen(currentPlayer);
 
             }
             else{
@@ -70,6 +70,20 @@ const uiController = (() => {
     const startScreen = document.querySelector("#start-screen");
     const boardScreen = document.querySelector("#board");
     const startButton = document.querySelector("#start");
+
+    const winScreen = (player) => {
+        boardScreen.setAttribute("style", "display: none");
+        const newDiv = document.createElement("div");
+        const newText = document.createTextNode(`${playerArr[player - 1].getName()} wins!`)
+        const newText2 = document.createTextNode("Play Again?");
+
+        newDiv.appendChild(newText);
+        newDiv.appendChild(document.createElement("br"));
+        newDiv.appendChild(document.createElement("br"));
+        newDiv.appendChild(newText2);
+        document.body.appendChild(newDiv);
+
+    }
 
     
     const startGame = (p1name, p2name) => {
@@ -105,5 +119,5 @@ const uiController = (() => {
         }
     })
 
-    return {startGame}
+    return {startGame, winScreen}
 })();
