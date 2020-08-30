@@ -6,8 +6,18 @@ const newPlayer = (name, piece) => {
     const getScore = () => score;
     return {getName, getPiece, addPoint, getScore};
 };
-let currentPlayer = 1;
+
 const gameBoard = (() => {
+    let currentPlayer = 1;
+    const getCurrentPlayer = () => currentPlayer;
+    const setCurrentPlayer = (player) => {
+        if (player == 1){
+            currentPlayer += 1;
+        }
+        else if (player == 2){
+            currentPlayer -= 1;
+        }
+    }
     let board = ["", "", "", "", "", "", "", "", ""];
     let winConditions = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
     
@@ -19,14 +29,16 @@ const gameBoard = (() => {
         }
         else{
 
-            if (currentPlayer = 1){
+            if (currentPlayer == 1){
                 board[index] = playerArr[0].getPiece();
+            
             }
-            else if (currentPlayer = 2){
+            else if (currentPlayer == 2){
                 board[index] = playerArr[1].getPiece();
+                
             }
             
-            checkWin();
+            checkWin(playerArr[currentPlayer - 1].getPiece());
 
         }
         
@@ -36,22 +48,20 @@ const gameBoard = (() => {
             if ((board[condition[0]] === piece &&
                 board[condition[1]] === piece && 
                 board[condition[2]] === piece)){
+                    console.log("This works");
 
             }
             else{
-               if (currentPlayer = 1){
-                   currentPlayer = 2;
-               } 
-               else if (currentPlayer = 2){
-                   currentPlayer = 1;
-               }
+               
             }
+
+            
         })
     }
 
     
 
-    return {setPiece};
+    return {setPiece, getCurrentPlayer, setCurrentPlayer};
 
 })();
 const playerArr = [];
@@ -75,8 +85,9 @@ const uiController = (() => {
         square.addEventListener("click", (e) => {
             if (e.target.textContent === ""){
                 console.log(e);
-                e.target.textContent = playerArr[currentPlayer - 1].getPiece();
-                gameBoard.setPiece(parseInt(e.target.id), playerArr[currentPlayer - 1].getPiece());
+                e.target.textContent = playerArr[gameBoard.getCurrentPlayer() - 1].getPiece();
+                gameBoard.setPiece(parseInt(e.target.id), playerArr[gameBoard.getCurrentPlayer() - 1].getPiece());
+                gameBoard.setCurrentPlayer(gameBoard.getCurrentPlayer());
             }
             else{
                alert("Occupied. Choose another"); 
