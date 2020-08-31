@@ -59,12 +59,19 @@ const gameBoard = (() => {
         })
     }
 
+    const resetBoard = () => {
+        for (i = 0; i < board.length; i++){
+            board[i] = "";
+        }
+        console.log(board);
+    }
+
     
 
-    return {setPiece, getCurrentPlayer, setCurrentPlayer};
+    return {setPiece, getCurrentPlayer, setCurrentPlayer, resetBoard};
 
 })();
-const playerArr = [];
+const playerArr = [" ", " "];
 const uiController = (() => {
     const squares = document.querySelectorAll(".slot");
     const startScreen = document.querySelector("#start-screen");
@@ -74,14 +81,38 @@ const uiController = (() => {
     const winScreen = (player) => {
         boardScreen.setAttribute("style", "display: none");
         const newDiv = document.createElement("div");
+        const btnDiv = document.createElement("div");
         const newText = document.createTextNode(`${playerArr[player - 1].getName()} wins!`)
         const newText2 = document.createTextNode("Play Again?");
+
+        const yesBtn = document.createElement("BUTTON");
+        yesBtn.innerText = "Yes";
+        yesBtn.setAttribute("id", "Yes");
+
+        const noBtn = document.createElement("button");
+        noBtn.innerText = "No";
+        noBtn.setAttribute("id", "No");
+
+        btnDiv.appendChild(yesBtn);
+        btnDiv.appendChild(noBtn);
+
+        
 
         newDiv.appendChild(newText);
         newDiv.appendChild(document.createElement("br"));
         newDiv.appendChild(document.createElement("br"));
         newDiv.appendChild(newText2);
+        
         document.body.appendChild(newDiv);
+        document.body.appendChild(btnDiv);
+
+        yesBtn.onclick = () => {
+            gameBoard.resetBoard();
+            document.body.removeChild(btnDiv);
+            document.body.removeChild(newDiv);
+            boardScreen.setAttribute("style", "display: block");
+            resetSquares();
+        }
 
     }
 
@@ -89,11 +120,16 @@ const uiController = (() => {
     const startGame = (p1name, p2name) => {
         let player1 = newPlayer(p1name, "X");
         let player2 = newPlayer(p2name, "O");
-        playerArr.push(player1);
-        playerArr.push(player2);
+        playerArr[0] = player1;
+        playerArr[1] = player2;
         startScreen.setAttribute("style", "display: none;");
         boardScreen.setAttribute("style", "display: block;");
         
+    }
+    const resetSquares = () => {
+        for (i of squares){
+            i.textContent = "";
+        }
     }
     squares.forEach((square) => {
         square.addEventListener("click", (e) => {
