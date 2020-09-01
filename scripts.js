@@ -48,6 +48,7 @@ const gameBoard = (() => {
             if ((board[condition[0]] === piece &&
                 board[condition[1]] === piece && 
                 board[condition[2]] === piece)){
+                    playerArr[currentPlayer - 1].addPoint();
                     uiController.winScreen(currentPlayer);
 
             }
@@ -112,6 +113,18 @@ const uiController = (() => {
             document.body.removeChild(newDiv);
             boardScreen.setAttribute("style", "display: block");
             resetSquares();
+        }
+
+        noBtn.onclick = () => {
+            document.body.removeChild(btnDiv);
+            document.body.removeChild(newDiv);
+            const scoreDiv = document.createElement("div")
+            scoreDiv.appendChild(document.createTextNode(`${playerArr[0].getName()}'s score is ${playerArr[0].getScore()}`));
+            scoreDiv.appendChild(document.createElement("br"));
+            scoreDiv.appendChild(document.createTextNode(`${playerArr[1].getName()}'s score is ${playerArr[1].getScore()}`));
+
+            document.body.appendChild(scoreDiv);
+
         }
 
     }
