@@ -159,12 +159,12 @@ const uiController = (() => {
     })
     startButton.addEventListener("click", (e) => {
         console.log(e);
-        if (e.path[1].children[1].value === "" ||
-            e.path[1].children[3].value === ""){
+        if (document.getElementById("p1name").value === "" ||
+            document.getElementById("p2name").value === ""){
                 alert("Please fill in names for both players!")
             }
         else {
-            startGame(e.path[1].children[1].value, e.path[1].children[3].value)
+            startGame(document.getElementById("p1name").value, document.getElementById("p2name").value)
         }
     })
 
